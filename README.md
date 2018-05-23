@@ -1,2 +1,2 @@
-# StickNot3s
-es un sticky note project
+# Snakez
+esun juego xd
