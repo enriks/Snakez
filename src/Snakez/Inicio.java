@@ -111,6 +111,7 @@ private List<String> lit = manejadorConfig.selectConfig();
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         this.dispose();
         serpienteEjecutador k =  new serpienteEjecutador(Integer.parseInt(lit.get(4)), lit.get(0), lit.get(1), lit.get(2), lit.get(3), Integer.parseInt(lit.get(5)), Integer.parseInt(lit.get(6)), Integer.parseInt(lit.get(7)));
+        k.setVisible(true);
     }//GEN-LAST:event_jButton1ActionPerformed
 
     

@@ -43,7 +43,6 @@ public class DbManager {
                 + "g = ?, "
                 + "b = ? "
                 + "WHERE id = ?";
-        System.err.println(sql);
  
         try (Connection conn = this.connect();
                 PreparedStatement pstmt = conn.prepareStatement(sql)) {

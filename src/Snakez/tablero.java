@@ -6,6 +6,7 @@ import java.awt.Font;
 import java.awt.FontMetrics;
 import java.awt.Graphics;
 import java.awt.Image;
+import java.awt.Label;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -16,7 +17,8 @@ import javax.swing.JPanel;
 import javax.swing.Timer;
 
 public class tablero extends JPanel implements ActionListener {
-
+    
+    private final Label score = new Label("Score: 0");
     private final int anchoCampo = 500;
     private final int altoCampo = 500;
     private final int cuerpoTamanho = 10;
@@ -88,7 +90,7 @@ public class tablero extends JPanel implements ActionListener {
     private int manzana_y;
     private Image manzana;
     
-    private int modo = 1;
+    private int modo;
     private int cantJug;
     private int ganador;
     
@@ -99,62 +101,63 @@ public class tablero extends JPanel implements ActionListener {
     
     
 
-    public tablero() {
-        
-    	iniCampo();
+    public tablero(int num,String skin1,String skin2,String skin3, String skin4,int r, int g, int b) {
+        modo = num;
+    	iniCampo(skin1,skin2,skin3,skin4,r,g,b);
     }
     
-    private void iniCampo() {
+    private void iniCampo(String skin1,String skin2,String skin3, String skin4,int r, int g, int b) {
 
         addKeyListener(new TAdapter());
-        setBackground(Color.black);
+        Color a = new Color(r,g,b);
+        setBackground(a);
         setFocusable(true);
         setDoubleBuffered(true);
 
         setPreferredSize(new Dimension(anchoCampo, altoCampo));
         iniJuego();
-        cargarImg();
+        cargarImg(skin1,skin2,skin3,skin4);
         
     }
 
-    private void cargarImg() {
+    private void cargarImg(String skin1,String skin2,String skin3, String skin4) {
     	
     	ImageIcon iia = new ImageIcon("src/multimedia/manzana.png");
         manzana = iia.getImage();
         
         if(activo1) {
         
-        	ImageIcon iicu = new ImageIcon("src/multimedia/rojo.png");
+        	ImageIcon iicu = new ImageIcon("src/multimedia/"+skin1+".png");
         	cuerpo = iicu.getImage();
 
-        	ImageIcon iica = new ImageIcon("src/multimedia/verde.png");
+        	ImageIcon iica = new ImageIcon("src/multimedia/rojo.png");
         	cabeza = iica.getImage();
         }
         
         if(activo2) {
         
-        	ImageIcon iicu2 = new ImageIcon("src/multimedia/morado.png");
+        	ImageIcon iicu2 = new ImageIcon("src/multimedia/"+skin2+".png");
         	cuerpo2 = iicu2.getImage();
 
-        	ImageIcon iica2 = new ImageIcon("src/multimedia/anaranjado.png");
+        	ImageIcon iica2 = new ImageIcon("src/multimedia/azul.png");
         	cabeza2 = iica2.getImage();
         }
         
         if(activo3) {
           
-          ImageIcon iicu3 = new ImageIcon("src/multimedia/blanco.png");
+          ImageIcon iicu3 = new ImageIcon("src/multimedia/"+skin3+".png");
           cuerpo3 = iicu3.getImage();
 
-          ImageIcon iica3 = new ImageIcon("src/multimedia/azul.png");
+          ImageIcon iica3 = new ImageIcon("src/multimedia/verde.png");
           cabeza3 = iica3.getImage();
          }
         
         if(activo4) {
             
-            ImageIcon iicu4 = new ImageIcon("src/multimedia/gris.png");
+            ImageIcon iicu4 = new ImageIcon("src/multimedia/"+skin4+".png");
             cuerpo4 = iicu4.getImage();
 
-            ImageIcon iica4 = new ImageIcon("src/multimedia/acua.png");
+            ImageIcon iica4 = new ImageIcon("src/multimedia/anaranjado.png");
             cabeza4 = iica4.getImage();
         }
         
@@ -220,7 +223,8 @@ public class tablero extends JPanel implements ActionListener {
     @Override
     public void paintComponent(Graphics g) {
         super.paintComponent(g);
-
+        
+    
         dibujar(g);
     }
     
@@ -315,6 +319,7 @@ public class tablero extends JPanel implements ActionListener {
         if ((x[0] == manzana_x) && (y[0] == manzana_y)) {
         	
         	manzanasCom++;
+                score.setText("Score: "+manzanasCom);
         	cuerpos++;
         	ubManzana();
         }else if ((x2[0] == manzana_x) && (y2[0] == manzana_y)) {

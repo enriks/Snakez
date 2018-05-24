@@ -1,18 +1,23 @@
 package Snakez;
 
 import java.awt.EventQueue;
+import java.awt.Label;
 import javax.swing.JFrame;
 
 public class serpienteEjecutador extends JFrame {
+    static int num;
+    static String skin1, skin2, skin3;
+    static String skin4;
+    static int r, g, b;
 
-    public serpienteEjecutador() {
+    public serpienteEjecutador(int num,String skin1,String skin2,String skin3, String skin4,int r, int g, int b) {
         
-        initUI();
+        initUI(num,skin1,skin2,skin3,skin4,r,g,b);
     }
     
-    private void initUI() {
+    private void initUI(int num,String skin1,String skin2,String skin3, String skin4,int r, int g, int b) {
         
-        add(new tablero());
+        add(new tablero(num,skin1,skin2,skin3,skin4,r,g,b));
                
         setResizable(false);
         pack();
@@ -26,7 +31,7 @@ public class serpienteEjecutador extends JFrame {
     public static void main(String[] args) {
         
         EventQueue.invokeLater(() -> {
-            JFrame ex = new serpienteEjecutador();
+            JFrame ex = new serpienteEjecutador(num,skin1,skin2,skin3,skin4,r,g,b);
             ex.setVisible(true);
         });
     }
