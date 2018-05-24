@@ -200,6 +200,11 @@ public class Configuracion extends javax.swing.JFrame {
 
         btnSalir.setFont(new java.awt.Font("Comic Sans MS", 0, 18)); // NOI18N
         btnSalir.setText("Salir");
+        btnSalir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSalirActionPerformed(evt);
+            }
+        });
 
         btnGuardar.setFont(new java.awt.Font("Comic Sans MS", 0, 18)); // NOI18N
         btnGuardar.setText("Guardar");
@@ -229,7 +234,7 @@ public class Configuracion extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
+                    .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, 352, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 26, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnSalir)
@@ -243,6 +248,12 @@ public class Configuracion extends javax.swing.JFrame {
     private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarActionPerformed
         manejadorConfig.updateConfig(cmbSkinplyr1.getSelectedItem().toString(), cmbSkinplyr2.getSelectedItem().toString(), cmbSkinplyr3.getSelectedItem().toString(), cmbSkinplyr4.getSelectedItem().toString(), Integer.parseInt(txtNumeroJug.getText()), clrFondo.getColor().getRed(),clrFondo.getColor().getGreen(),clrFondo.getColor().getBlue());
     }//GEN-LAST:event_btnGuardarActionPerformed
+
+    private void btnSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalirActionPerformed
+        this.dispose();
+        Inicio a = new Inicio();
+        a.setVisible(true);
+    }//GEN-LAST:event_btnSalirActionPerformed
 
     /**
      * @param args the command line arguments

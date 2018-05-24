@@ -5,12 +5,16 @@
  */
 package Snakez;
 
+import java.util.List;
+import javax.swing.JFrame;
+
 /**
  *
  * @author Alumno
  */
 public class Inicio extends javax.swing.JFrame {
-
+public DbManager manejadorConfig = new DbManager();
+private List<String> lit = manejadorConfig.selectConfig();
     /**
      * Creates new form Inicio
      */
@@ -42,6 +46,11 @@ public class Inicio extends javax.swing.JFrame {
 
         jButton1.setFont(new java.awt.Font("Comic Sans MS", 0, 18)); // NOI18N
         jButton1.setText("Jugar");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
 
         jButton2.setFont(new java.awt.Font("Comic Sans MS", 0, 18)); // NOI18N
         jButton2.setText("Configuracion");
@@ -99,6 +108,12 @@ public class Inicio extends javax.swing.JFrame {
         a.setVisible(true);
     }//GEN-LAST:event_jButton2ActionPerformed
 
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        this.dispose();
+        serpienteEjecutador k =  new serpienteEjecutador(Integer.parseInt(lit.get(4)), lit.get(0), lit.get(1), lit.get(2), lit.get(3), Integer.parseInt(lit.get(5)), Integer.parseInt(lit.get(6)), Integer.parseInt(lit.get(7)));
+    }//GEN-LAST:event_jButton1ActionPerformed
+
+    
     /**
      * @param args the command line arguments
      */

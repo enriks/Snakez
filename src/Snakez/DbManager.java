@@ -23,7 +23,7 @@ import java.util.List;
 public class DbManager {
     private Connection connect() {
         // SQLite connection string
-        String url = "jdbc:sqlite:C:/Users/Alumno/Documents/NetBeansProjects/Snakez/src/database/Stick.db";
+        String url = "jdbc:sqlite:../Snakez/src/database/Stick.db";
         Connection conn = null;
         try {
             conn = DriverManager.getConnection(url);
