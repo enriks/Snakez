@@ -12,9 +12,15 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
+import java.io.FileInputStream;
+import java.io.IOException;
 import javax.swing.ImageIcon;
 import javax.swing.JPanel;
 import javax.swing.Timer;
+import sun.audio.AudioData;
+import sun.audio.AudioPlayer;
+import sun.audio.AudioStream;
+import sun.audio.ContinuousAudioDataStream;
 
 public class tablero extends JPanel implements ActionListener {
     
@@ -101,12 +107,12 @@ public class tablero extends JPanel implements ActionListener {
     
     
 
-    public tablero(int num,String skin1,String skin2,String skin3, String skin4,int r, int g, int b) {
+    public tablero(int num,String skin1,String skin2,String skin3, String skin4,int r, int g, int b,String musica) {
         modo = num;
-    	iniCampo(skin1,skin2,skin3,skin4,r,g,b);
+    	iniCampo(skin1,skin2,skin3,skin4,r,g,b,musica);
     }
     
-    private void iniCampo(String skin1,String skin2,String skin3, String skin4,int r, int g, int b) {
+    private void iniCampo(String skin1,String skin2,String skin3, String skin4,int r, int g, int b,String musica) {
 
         addKeyListener(new TAdapter());
         Color a = new Color(r,g,b);
@@ -117,6 +123,7 @@ public class tablero extends JPanel implements ActionListener {
         setPreferredSize(new Dimension(anchoCampo, altoCampo));
         iniJuego();
         cargarImg(skin1,skin2,skin3,skin4);
+        Cargarmusica(musica);
         
     }
 
@@ -162,6 +169,27 @@ public class tablero extends JPanel implements ActionListener {
         }
         
     }
+    public static void Cargarmusica(String musica)
+{
+    AudioPlayer MGP = AudioPlayer.player;
+    AudioStream BGM;
+    AudioData MD;
+
+    ContinuousAudioDataStream loop = null;
+
+    try
+    {
+        BGM = new AudioStream(new FileInputStream("/res/"+musica+".mp3"));
+        MD = BGM.getData();
+        loop = new ContinuousAudioDataStream(MD);
+    }
+    catch(IOException e)
+    {
+        System.out.println("cant find the file");
+    }
+
+    MGP.start(loop);
+}
 
     private void iniJuego() {
 

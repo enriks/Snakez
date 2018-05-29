@@ -16,7 +16,7 @@ public class serpienteEjecutador extends JFrame {
     }
     
     private void initUI(int num,String skin1,String skin2,String skin3, String skin4,int r, int g, int b) {
-        
+        //TO DO poner la musica bein y crear la carptea de mierda
         add(new tablero(num,skin1,skin2,skin3,skin4,r,g,b));
                
         setResizable(false);

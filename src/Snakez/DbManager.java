@@ -33,7 +33,7 @@ public class DbManager {
         return conn;
     }
     
-    public void updateConfig(String skin1, String skin2, String skin3, String skin4,Integer numJug, Integer r, Integer g, Integer b) {
+    public void updateConfig(String skin1, String skin2, String skin3, String skin4,Integer numJug, Integer r, Integer g, Integer b, int aleatorio,int musicaIndex) {
         String sql = "UPDATE configuracion SET skin1 = ? , "
                 + "skin2 = ?, "
                 + "skin3 = ?, "
@@ -42,6 +42,8 @@ public class DbManager {
                 + "r = ?, "
                 + "g = ?, "
                 + "b = ? "
+                + "aleatorio = ? "
+                + "musica = ? "
                 + "WHERE id = ?";
  
         try (Connection conn = this.connect();
@@ -56,7 +58,9 @@ public class DbManager {
             pstmt.setInt(6, r);
             pstmt.setInt(7, g);
             pstmt.setInt(8, b);
-            pstmt.setInt(9, 1);
+            pstmt.setInt(9, aleatorio);
+            pstmt.setInt(10, musicaIndex);
+            pstmt.setInt(11, 1);
             // update 
             pstmt.executeUpdate();
         } catch (SQLException e) {
@@ -85,7 +89,7 @@ public class DbManager {
     public List selectConfig(){
         List<String> esto = new ArrayList<String>();
         
-        String sql = "select skin1,skin2,skin3,skin4,jugadores,r,g,b from configuracion";
+        String sql = "select skin1,skin2,skin3,skin4,jugadores,r,g,b,aleatorio,musica from configuracion";
         
         try (Connection conn = this.connect();
              Statement stmt  = conn.createStatement();
@@ -102,6 +106,8 @@ public class DbManager {
                 esto.add(5,Integer.toString(rs.getInt("r")));
                 esto.add(6,Integer.toString(rs.getInt("g")));
                 esto.add(7,Integer.toString(rs.getInt("b")));
+                esto.add(8,Integer.toString(rs.getInt("aleatorio")));
+                esto.add(9,Integer.toString(rs.getInt("musica")));
             }
         } catch (SQLException e) {
             System.out.println(e.getMessage());
@@ -113,6 +119,27 @@ public class DbManager {
         List<String> esto = new ArrayList<String>();
         
         String sql = "SELECT nombre from skins";
+        
+        try (Connection conn = this.connect();
+             Statement stmt  = conn.createStatement();
+             ResultSet rs    = stmt.executeQuery(sql)){
+            
+            // loop through the result set
+            int index =0;
+            while (rs.next()) {
+                esto.add(index,rs.getString("nombre"));
+                index ++;
+            }
+        } catch (SQLException e) {
+            System.out.println(e.getMessage()+"aaaa");
+        }
+        System.out.println(esto.size());
+        return esto;
+    }
+    public List selectMusic(){
+        List<String> esto = new ArrayList<String>();
+        
+        String sql = "SELECT nombre from musica";
         
         try (Connection conn = this.connect();
              Statement stmt  = conn.createStatement();
