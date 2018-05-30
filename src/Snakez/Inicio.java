@@ -5,8 +5,10 @@
  */
 package Snakez;
 
+import java.io.FileInputStream;
 import java.util.List;
 import javax.swing.JFrame;
+import javazoom.jl.player.Player;
 
 /**
  *
@@ -15,11 +17,27 @@ import javax.swing.JFrame;
 public class Inicio extends javax.swing.JFrame {
 public DbManager manejadorConfig = new DbManager();
 private List<String> lit = manejadorConfig.selectConfig();
+private Thread as= new Thread(new Runnable() {
+       @Override
+       public void run() {
+           try{
+               do{
+                   FileInputStream fis = new FileInputStream("../Snakez/src/res/inicio.mp3");
+                   Player playMP3 = new Player(fis);
+                   playMP3.play();}
+               while(true);
+           }
+           catch(Exception exc){
+               exc.printStackTrace();
+               System.out.println("Failed to play the file.");
+           }      }
+   });;
     /**
      * Creates new form Inicio
      */
     public Inicio() {
         initComponents();
+        as.start();
     }
 
     /**
@@ -35,6 +53,7 @@ private List<String> lit = manejadorConfig.selectConfig();
         lblInicio = new javax.swing.JLabel();
         jButton1 = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
+        jButton3 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -60,21 +79,32 @@ private List<String> lit = manejadorConfig.selectConfig();
             }
         });
 
+        jButton3.setFont(new java.awt.Font("Comic Sans MS", 0, 18)); // NOI18N
+        jButton3.setText("Puntuaciones");
+        jButton3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton3ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout pnlFondoInicioLayout = new javax.swing.GroupLayout(pnlFondoInicio);
         pnlFondoInicio.setLayout(pnlFondoInicioLayout);
         pnlFondoInicioLayout.setHorizontalGroup(
             pnlFondoInicioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pnlFondoInicioLayout.createSequentialGroup()
-                .addGap(89, 89, 89)
                 .addGroup(pnlFondoInicioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(pnlFondoInicioLayout.createSequentialGroup()
-                        .addGap(46, 46, 46)
+                        .addGap(135, 135, 135)
                         .addComponent(lblInicio, javax.swing.GroupLayout.PREFERRED_SIZE, 54, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(pnlFondoInicioLayout.createSequentialGroup()
-                        .addGap(29, 29, 29)
+                        .addGap(118, 118, 118)
                         .addComponent(jButton1))
-                    .addComponent(jButton2))
-                .addContainerGap(101, Short.MAX_VALUE))
+                    .addGroup(pnlFondoInicioLayout.createSequentialGroup()
+                        .addGap(25, 25, 25)
+                        .addComponent(jButton2)
+                        .addGap(18, 18, 18)
+                        .addComponent(jButton3)))
+                .addContainerGap(24, Short.MAX_VALUE))
         );
         pnlFondoInicioLayout.setVerticalGroup(
             pnlFondoInicioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -83,16 +113,18 @@ private List<String> lit = manejadorConfig.selectConfig();
                 .addComponent(lblInicio, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(jButton1)
-                .addGap(18, 18, 18)
-                .addComponent(jButton2)
-                .addContainerGap(59, Short.MAX_VALUE))
+                .addGap(23, 23, 23)
+                .addGroup(pnlFondoInicioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jButton2)
+                    .addComponent(jButton3))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(pnlFondoInicio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addComponent(pnlFondoInicio, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -110,11 +142,28 @@ private List<String> lit = manejadorConfig.selectConfig();
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         this.dispose();
-        serpienteEjecutador k =  new serpienteEjecutador(Integer.parseInt(lit.get(4)), lit.get(0), lit.get(1), lit.get(2), lit.get(3), Integer.parseInt(lit.get(5)), Integer.parseInt(lit.get(6)), Integer.parseInt(lit.get(7)));
+        as.stop();
+        serpienteEjecutador k =  new serpienteEjecutador(Integer.parseInt(lit.get(4)), lit.get(0), lit.get(1), lit.get(2), lit.get(3), Integer.parseInt(lit.get(5)), Integer.parseInt(lit.get(6)), Integer.parseInt(lit.get(7)),manejadorConfig.selectReproductionMusic(selectMusicaIndex()));
         k.setVisible(true);
     }//GEN-LAST:event_jButton1ActionPerformed
 
-    
+    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+       Puntuaciones punt=new Puntuaciones();
+       punt.setVisible(true);
+    }//GEN-LAST:event_jButton3ActionPerformed
+
+    private int selectMusicaIndex(){
+        int esto = 0;
+         List<String> lit2 = manejadorConfig.selectMusic();
+         if (lit.get(8).equals("1")){
+             esto = (int)(Math.random()*lit2.size()+1);
+             System.out.println(lit2.size()+"    "+esto+"a");
+         }
+         else{
+             esto = Integer.parseInt(lit.get(9));
+         }
+     return esto;    
+    }
     /**
      * @param args the command line arguments
      */
@@ -153,6 +202,7 @@ private List<String> lit = manejadorConfig.selectConfig();
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
+    private javax.swing.JButton jButton3;
     private javax.swing.JLabel lblInicio;
     private javax.swing.JPanel pnlFondoInicio;
     // End of variables declaration//GEN-END:variables

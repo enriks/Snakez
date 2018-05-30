@@ -41,10 +41,11 @@ public class DbManager {
                 + "jugadores = ?, "
                 + "r = ?, "
                 + "g = ?, "
-                + "b = ? "
-                + "aleatorio = ? "
+                + "b = ?, "
+                + "aleatorio = ?, "
                 + "musica = ? "
                 + "WHERE id = ?";
+        System.err.println(aleatorio);
  
         try (Connection conn = this.connect();
                 PreparedStatement pstmt = conn.prepareStatement(sql)) {
@@ -62,6 +63,19 @@ public class DbManager {
             pstmt.setInt(10, musicaIndex);
             pstmt.setInt(11, 1);
             // update 
+            pstmt.executeUpdate();
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+    }
+    
+    public void InsertPuntuacion(String nombre, int puntuacion){
+        String sql = "INSERT INTO puntuacion(usuario,puntuacion) VALUES(?,?)";
+ 
+        try (Connection conn = this.connect();
+                PreparedStatement pstmt = conn.prepareStatement(sql)) {
+            pstmt.setString(1, nombre);
+            pstmt.setInt(2, puntuacion);
             pstmt.executeUpdate();
         } catch (SQLException e) {
             System.out.println(e.getMessage());
@@ -136,6 +150,33 @@ public class DbManager {
         System.out.println(esto.size());
         return esto;
     }
+    
+    public List selectPuntuaciones(){
+        List<List> esto = new ArrayList<List>();
+        List<String> nombres = new ArrayList<String>();
+        List<Integer> puntuaciones = new ArrayList<Integer>();
+        
+        String sql = "SELECT * from puntuacion order by _id limit 5";
+        
+        try (Connection conn = this.connect();
+             Statement stmt  = conn.createStatement();
+             ResultSet rs    = stmt.executeQuery(sql)){
+            
+            // loop through the result set
+            int index =0;
+            while (rs.next()) {
+                nombres.add(index, rs.getString("usuario"));
+                puntuaciones.add(index,rs.getInt("puntuacion"));
+                index ++;
+            }
+        } catch (SQLException e) {
+            System.out.println(e.getMessage()+"aaaa");
+        }
+        esto.add(0,nombres);
+        esto.add(1,puntuaciones);
+        System.out.println(esto.size());
+        return esto;
+    }
     public List selectMusic(){
         List<String> esto = new ArrayList<String>();
         
@@ -157,4 +198,22 @@ public class DbManager {
         System.out.println(esto.size());
         return esto;
     }
+    public String selectReproductionMusic(int id){
+        String esto = "";        
+        String sql = "SELECT nombre from musica where _id="+id;
+        
+        try (Connection conn = this.connect();
+             Statement stmt  = conn.createStatement();
+             ResultSet rs    = stmt.executeQuery(sql)){
+            
+            // loop through the result set
+            if (rs.next()) {
+                esto=rs.getString("nombre");
+            }
+        } catch (SQLException e) {
+            System.out.println(e.getMessage()+"aaaa");
+        }
+        return esto;
+    }
+    
 }

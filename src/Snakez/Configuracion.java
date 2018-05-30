@@ -324,7 +324,7 @@ public class Configuracion extends javax.swing.JFrame {
         if(chkiAleatorio.isSelected()){
         aleatorio = 1;
         }
-        manejadorConfig.updateConfig(cmbSkinplyr1.getSelectedItem().toString(), cmbSkinplyr2.getSelectedItem().toString(), cmbSkinplyr3.getSelectedItem().toString(), cmbSkinplyr4.getSelectedItem().toString(), Integer.parseInt(cmbNumplyr.getSelectedItem().toString()), clrFondo.getColor().getRed(),clrFondo.getColor().getGreen(),clrFondo.getColor().getBlue(),aleatorio,Integer.parseInt(cmbMusica.getSelectedItem().toString()));
+        manejadorConfig.updateConfig(cmbSkinplyr1.getSelectedItem().toString(), cmbSkinplyr2.getSelectedItem().toString(), cmbSkinplyr3.getSelectedItem().toString(), cmbSkinplyr4.getSelectedItem().toString(), Integer.parseInt(cmbNumplyr.getSelectedItem().toString()), clrFondo.getColor().getRed(),clrFondo.getColor().getGreen(),clrFondo.getColor().getBlue(),aleatorio,cmbMusica.getSelectedIndex()+1);
     }//GEN-LAST:event_btnGuardarActionPerformed
 
     private void btnSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalirActionPerformed
@@ -404,15 +404,16 @@ public class Configuracion extends javax.swing.JFrame {
         for(int k =0; k<yeet.size();k++){
             cmbMusica.addItem(yeet.get(k));
         }
-        if(lit.get(8).equals(1)){
+        if(lit.get(8).equals("1")){
             selecionado = true;
-            chkiAleatorio.setSelected(selecionado);            
+            chkiAleatorio.setSelected(false);
+cmbMusica.setEnabled(!selecionado);
         }else{
             selecionado=false;            
         }
         chkiAleatorio.setSelected(selecionado);
         cmbNumplyr.setSelectedItem(lit.get(4));
-        cmbMusica.setSelectedItem(lit.get(9));
+        cmbMusica.setSelectedItem(manejadorConfig.selectReproductionMusic(Integer.parseInt(lit.get(9))));
         System.out.println(lit.get(5));
         clrFondo.setColor(Integer.parseInt(lit.get(5)),Integer.parseInt(lit.get(6)),Integer.parseInt(lit.get(7)));
         

@@ -15,14 +15,19 @@ import java.awt.event.KeyEvent;
 import java.io.FileInputStream;
 import java.io.IOException;
 import javax.swing.ImageIcon;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.Timer;
+import javazoom.jl.player.Player;
 import sun.audio.AudioData;
 import sun.audio.AudioPlayer;
 import sun.audio.AudioStream;
 import sun.audio.ContinuousAudioDataStream;
 
 public class tablero extends JPanel implements ActionListener {
+    
+    public DbManager manejadorConfig = new DbManager();
     
     private final Label score = new Label("Score: 0");
     private final int anchoCampo = 500;
@@ -103,13 +108,16 @@ public class tablero extends JPanel implements ActionListener {
     private boolean inGame = true;
 
     private Timer timer;
+    private JFrame lacosa;
+    private Thread a;
     
     
     
 
-    public tablero(int num,String skin1,String skin2,String skin3, String skin4,int r, int g, int b,String musica) {
+    public tablero(int num,String skin1,String skin2,String skin3, String skin4,int r, int g, int b,String musica,JFrame lacoas) {
         modo = num;
     	iniCampo(skin1,skin2,skin3,skin4,r,g,b,musica);
+        lacosa = lacoas;
     }
     
     private void iniCampo(String skin1,String skin2,String skin3, String skin4,int r, int g, int b,String musica) {
@@ -169,26 +177,24 @@ public class tablero extends JPanel implements ActionListener {
         }
         
     }
-    public static void Cargarmusica(String musica)
+    public void Cargarmusica(String musica)
 {
-    AudioPlayer MGP = AudioPlayer.player;
-    AudioStream BGM;
-    AudioData MD;
-
-    ContinuousAudioDataStream loop = null;
-
-    try
-    {
-        BGM = new AudioStream(new FileInputStream("/res/"+musica+".mp3"));
-        MD = BGM.getData();
-        loop = new ContinuousAudioDataStream(MD);
-    }
-    catch(IOException e)
-    {
-        System.out.println("cant find the file");
-    }
-
-    MGP.start(loop);
+   a = new Thread(new Runnable() {
+       @Override
+       public void run() {
+           try{
+               do{
+                   FileInputStream fis = new FileInputStream("../Snakez/src/res/"+musica+".mp3");
+                   Player playMP3 = new Player(fis);
+                   playMP3.play();}
+               while(inGame);
+           }
+           catch(Exception exc){
+               exc.printStackTrace();
+               System.out.println("Failed to play the file.");
+           }      }
+   });
+   a.start();
 }
 
     private void iniJuego() {
@@ -251,6 +257,31 @@ public class tablero extends JPanel implements ActionListener {
     @Override
     public void paintComponent(Graphics g) {
         super.paintComponent(g);
+         g.setColor(Color.WHITE);
+         g.setFont(new Font("Comic Sans MS",Font.PLAIN,18));
+        switch(modo){
+            case 1:
+                
+               
+                g.drawString("Puntuacion: "+String.valueOf(manzanasCom), 0, 20);
+    break;
+            case 2:
+                
+                g.drawString("jugador 1: "+String.valueOf(manzanasCom), 0, 20);
+                g.drawString("jugador 2: "+String.valueOf(manzanasCom2), 120, 20);
+                break;
+            case 3:
+                g.drawString("jugador 1: "+String.valueOf(manzanasCom), 0, 20);
+                g.drawString("jugador 2: "+String.valueOf(manzanasCom2), 110, 20);
+                g.drawString("jugador 3: "+String.valueOf(manzanasCom3), 220, 20);
+                break;
+            case 4:
+                g.drawString("jugador 1: "+String.valueOf(manzanasCom), 0, 20);
+                g.drawString("jugador 2: "+String.valueOf(manzanasCom2), 110, 20);
+                g.drawString("jugador 3: "+String.valueOf(manzanasCom3), 220, 20);
+                g.drawString("jugador 4: "+String.valueOf(manzanasCom4), 330, 20);
+                
+        }
         
     
         dibujar(g);
@@ -313,13 +344,16 @@ public class tablero extends JPanel implements ActionListener {
         } else {
 
             gameOver(g);
+            
         }        
     }
 
     private void gameOver(Graphics g) {
         String msg = "";
         if(modo == 1) {
-        	msg = "Game Over - Tu puntuaci�n es: " + manzanasCom;
+        	msg = "Game Over - Tu puntuacion es: " + manzanasCom;
+                Puntuacion puntt = new Puntuacion(manzanasCom,lacosa,a);
+                puntt.setVisible(true);
     	}else if(modo == 2) {
     		msg = "Game Over - Jugador " + ganador + " gana.";
     	}else if(modo > 2) {
@@ -340,6 +374,7 @@ public class tablero extends JPanel implements ActionListener {
         g.setColor(Color.white);
         g.setFont(small);
         g.drawString(msg, (anchoCampo - metr.stringWidth(msg)) / 2, altoCampo / 2);
+        g.drawString("presiona esc para volver al inicio",(anchoCampo - metr.stringWidth(msg)) / 2, (altoCampo / 2)+20);
     }
 
     private void verificarManzanaEst() {
@@ -798,7 +833,13 @@ public class tablero extends JPanel implements ActionListener {
         public void keyPressed(KeyEvent e) {
 
             int key = e.getKeyCode();
-
+            if(key == KeyEvent.VK_ESCAPE){
+                lacosa.dispose();
+                a.stop();
+                Inicio a = new Inicio();
+                a.setVisible(true);
+            }
+                
             if ((key == KeyEvent.VK_LEFT) && (!dirDer)) {
             	dirIzq = true;
             	dirArr = false;
