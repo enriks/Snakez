@@ -118,6 +118,7 @@ public class tablero extends JPanel implements ActionListener {
         modo = num;
     	iniCampo(skin1,skin2,skin3,skin4,r,g,b,musica);
         lacosa = lacoas;
+        lacosa.setBounds(750, 300, lacosa.getWidth(), lacosa.getHeight());
     }
     
     private void iniCampo(String skin1,String skin2,String skin3, String skin4,int r, int g, int b,String musica) {

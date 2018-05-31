@@ -28,6 +28,7 @@ public class Puntuacion extends javax.swing.JFrame {
         this.a=a;
         initComponents();
         lblpuntuacion.setText("Tu puntuacion es: "+puntuacion);
+        setBounds(750, 300, this.getWidth(), this.getHeight());
     }
 
     /**

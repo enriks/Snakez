@@ -19,6 +19,7 @@ public class Puntuaciones extends javax.swing.JFrame {
     public Puntuaciones() {
         initComponents();
         cargarPuntuaciones();
+        setBounds(750, 300, this.getWidth(), this.getHeight());
     }
 
     /**

@@ -38,6 +38,7 @@ private Thread as= new Thread(new Runnable() {
     public Inicio() {
         initComponents();
         as.start();
+        setBounds(750, 300, this.getWidth(), this.getHeight());
     }
 
     /**

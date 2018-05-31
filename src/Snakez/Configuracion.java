@@ -21,7 +21,9 @@ public class Configuracion extends javax.swing.JFrame {
      */
     public Configuracion() {
         initComponents();
+        setBounds(750, 300, this.getWidth(), this.getHeight());
         cargar();
+        
     }
 
     /**
