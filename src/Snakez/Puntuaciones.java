@@ -173,10 +173,10 @@ public class Puntuaciones extends javax.swing.JFrame {
         List<List> esto = manejadorConfig.selectPuntuaciones();
         List<String> nombres = esto.get(0);
         List<Integer> puntuaciones = esto.get(1);
-
+        System.err.println(esto.size());
             lbl1.setText(nombres.get(0));
             lblP1.setText(String.valueOf(puntuaciones.get(0)));
-        lbl2.setText(nombres.get(1));
+            lbl2.setText(nombres.get(1));
             lblP2.setText(String.valueOf(puntuaciones.get(1)));
             lbl3.setText(nombres.get(2));
             lblP3.setText(String.valueOf(puntuaciones.get(2)));
