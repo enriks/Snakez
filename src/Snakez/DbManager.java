@@ -45,7 +45,6 @@ public class DbManager {
                 + "aleatorio = ?, "
                 + "musica = ? "
                 + "WHERE id = ?";
-        System.err.println(aleatorio);
  
         try (Connection conn = this.connect();
                 PreparedStatement pstmt = conn.prepareStatement(sql)) {
@@ -82,24 +81,7 @@ public class DbManager {
         }
     }
     
-    public boolean existConfig(){
-        boolean exite = false;
-        String sql = "SELECT * from configuracion";
-        
-        try (Connection conn = this.connect();
-             Statement stmt  = conn.createStatement();
-             ResultSet rs    = stmt.executeQuery(sql)){
-            
-            // loop through the result set
-            if (rs.next()) {
-                exite = true;
-            }
-        } catch (SQLException e) {
-            System.out.println(e.getMessage());
-        }
-        return exite;
-    }
-    
+ 
     public List selectConfig(){
         List<String> esto = new ArrayList<String>();
         

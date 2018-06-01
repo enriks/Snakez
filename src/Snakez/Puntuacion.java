@@ -23,6 +23,7 @@ public class Puntuacion extends javax.swing.JFrame {
     private Thread a;
     
     public DbManager manejadorConfig = new DbManager();
+    public MusicaManager manejadorMusic = new MusicaManager();
     public Puntuacion(int puntuacion, JFrame lacosa, Thread a) {
         punt = puntuacion;
         lass=lacosa;
@@ -105,7 +106,7 @@ public class Puntuacion extends javax.swing.JFrame {
         aa.setVisible(true);
         this.dispose();
         lass.dispose();
-        a.stop();
+        manejadorMusic.PararCancion(a);
         }else{
              JOptionPane.showMessageDialog(rootPane, "Ingresa un nombre");
         }

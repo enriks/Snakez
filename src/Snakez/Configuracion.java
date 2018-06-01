@@ -402,16 +402,7 @@ cmbMusica.setEnabled(!selecionado);
         clrFondo.setColor(Integer.parseInt(lit.get(5)),Integer.parseInt(lit.get(6)),Integer.parseInt(lit.get(7)));
         
     }
-    public Color getColor(String color){
-        Color coloar=null;
-        try {
-            Field field = Class.forName("java.awt.Color").getField(color);
-            coloar = (Color)field.get(null);
-        } catch (Exception e) {
-        color = null; // Not defined
-        }
-        return coloar;
-    }
+    
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnGuardar;

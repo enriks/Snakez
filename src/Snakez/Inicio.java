@@ -17,21 +17,9 @@ import javazoom.jl.player.Player;
  */
 public class Inicio extends javax.swing.JFrame {
 public DbManager manejadorConfig = new DbManager();
+public MusicaManager manejadorMusic = new MusicaManager();
 private List<String> lit;
-private Thread as= new Thread(new Runnable() {
-       @Override
-       public void run() {
-           try{
-               do{
-                   FileInputStream fis = new FileInputStream("../Snakez/src/res/inicio.mp3");
-                   Player playMP3 = new Player(fis);
-                   playMP3.play();}
-               while(true);
-           }
-           catch(Exception exc){
-               exc.printStackTrace();
-           }      }
-   });;
+private Thread as= manejadorMusic.ReproducirCancion("inicio");
     /**
      * Creates new form Inicio
      */
@@ -39,7 +27,6 @@ private Thread as= new Thread(new Runnable() {
         initComponents();
         as.start();
         setBounds(750, 300, this.getWidth(), this.getHeight());
-        
         setIconImage(Toolkit.getDefaultToolkit().getImage(getClass().getResource("/multimedia/logo.png")));
        
 
@@ -146,7 +133,7 @@ private Thread as= new Thread(new Runnable() {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         this.dispose();
-        as.stop();
+        manejadorMusic.PararCancion(as);
          lit = manejadorConfig.selectConfig();
         serpienteEjecutador k =  new serpienteEjecutador(Integer.parseInt(lit.get(4)), lit.get(0), lit.get(1), lit.get(2), lit.get(3), Integer.parseInt(lit.get(5)), Integer.parseInt(lit.get(6)), Integer.parseInt(lit.get(7)),manejadorConfig.selectReproductionMusic(selectMusicaIndex()));
         k.setVisible(true);
