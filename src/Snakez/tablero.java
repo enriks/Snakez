@@ -119,6 +119,7 @@ public class tablero extends JPanel implements ActionListener {
     	iniCampo(skin1,skin2,skin3,skin4,r,g,b,musica);
         lacosa = lacoas;
         lacosa.setBounds(750, 300, lacosa.getWidth(), lacosa.getHeight());
+        lacosa.setIconImage(Toolkit.getDefaultToolkit().getImage(getClass().getResource("/multimedia/logo.png")));
     }
     
     private void iniCampo(String skin1,String skin2,String skin3, String skin4,int r, int g, int b,String musica) {
@@ -192,7 +193,6 @@ public class tablero extends JPanel implements ActionListener {
            }
            catch(Exception exc){
                exc.printStackTrace();
-               System.out.println("Failed to play the file.");
            }      }
    });
    a.start();
@@ -375,8 +375,8 @@ public class tablero extends JPanel implements ActionListener {
         g.setColor(Color.white);
         g.setFont(small);
         g.drawString(msg, (anchoCampo - metr.stringWidth(msg)) / 2, altoCampo / 2);
-        g.drawString("presiona esc para volver al inicio",(anchoCampo - metr.stringWidth(msg)) / 2, (altoCampo / 2)+20);
-    }
+        if(modo >= 2)
+        g.drawString("presiona esc para volver al inicio",(anchoCampo - metr.stringWidth(msg)) / 2, (altoCampo / 2)+20);    }
 
     private void verificarManzanaEst() {
 
@@ -834,7 +834,7 @@ public class tablero extends JPanel implements ActionListener {
         public void keyPressed(KeyEvent e) {
 
             int key = e.getKeyCode();
-            if(key == KeyEvent.VK_ESCAPE){
+            if(key == KeyEvent.VK_ESCAPE && modo >=2){
                 lacosa.dispose();
                 a.stop();
                 Inicio a = new Inicio();

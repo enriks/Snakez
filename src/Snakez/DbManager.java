@@ -147,7 +147,6 @@ public class DbManager {
         } catch (SQLException e) {
             System.out.println(e.getMessage()+"aaaa");
         }
-        System.out.println(esto.size());
         return esto;
     }
     
@@ -156,7 +155,7 @@ public class DbManager {
         List<String> nombres = new ArrayList<String>();
         List<Integer> puntuaciones = new ArrayList<Integer>();
         
-        String sql = "SELECT * from puntuacion order by _id limit 5";
+        String sql = "SELECT * from puntuacion order by _id desc limit 5";
         
         try (Connection conn = this.connect();
              Statement stmt  = conn.createStatement();
@@ -195,7 +194,6 @@ public class DbManager {
         } catch (SQLException e) {
             System.out.println(e.getMessage()+"aaaa");
         }
-        System.out.println(esto.size());
         return esto;
     }
     public String selectReproductionMusic(int id){

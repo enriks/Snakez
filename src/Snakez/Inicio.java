@@ -5,6 +5,7 @@
  */
 package Snakez;
 
+import java.awt.Toolkit;
 import java.io.FileInputStream;
 import java.util.List;
 import javax.swing.JFrame;
@@ -16,7 +17,7 @@ import javazoom.jl.player.Player;
  */
 public class Inicio extends javax.swing.JFrame {
 public DbManager manejadorConfig = new DbManager();
-private List<String> lit = manejadorConfig.selectConfig();
+private List<String> lit;
 private Thread as= new Thread(new Runnable() {
        @Override
        public void run() {
@@ -29,7 +30,6 @@ private Thread as= new Thread(new Runnable() {
            }
            catch(Exception exc){
                exc.printStackTrace();
-               System.out.println("Failed to play the file.");
            }      }
    });;
     /**
@@ -39,6 +39,10 @@ private Thread as= new Thread(new Runnable() {
         initComponents();
         as.start();
         setBounds(750, 300, this.getWidth(), this.getHeight());
+        
+        setIconImage(Toolkit.getDefaultToolkit().getImage(getClass().getResource("/multimedia/logo.png")));
+       
+
     }
 
     /**
@@ -136,7 +140,6 @@ private Thread as= new Thread(new Runnable() {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        this.dispose();
         Configuracion a = new Configuracion();
         a.setVisible(true);
     }//GEN-LAST:event_jButton2ActionPerformed
@@ -144,6 +147,7 @@ private Thread as= new Thread(new Runnable() {
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         this.dispose();
         as.stop();
+         lit = manejadorConfig.selectConfig();
         serpienteEjecutador k =  new serpienteEjecutador(Integer.parseInt(lit.get(4)), lit.get(0), lit.get(1), lit.get(2), lit.get(3), Integer.parseInt(lit.get(5)), Integer.parseInt(lit.get(6)), Integer.parseInt(lit.get(7)),manejadorConfig.selectReproductionMusic(selectMusicaIndex()));
         k.setVisible(true);
     }//GEN-LAST:event_jButton1ActionPerformed
@@ -158,7 +162,6 @@ private Thread as= new Thread(new Runnable() {
          List<String> lit2 = manejadorConfig.selectMusic();
          if (lit.get(8).equals("1")){
              esto = (int)(Math.random()*lit2.size()+1);
-             System.out.println(lit2.size()+"    "+esto+"a");
          }
          else{
              esto = Integer.parseInt(lit.get(9));

@@ -5,6 +5,7 @@
  */
 package Snakez;
 
+import java.awt.Toolkit;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 
@@ -29,6 +30,7 @@ public class Puntuacion extends javax.swing.JFrame {
         initComponents();
         lblpuntuacion.setText("Tu puntuacion es: "+puntuacion);
         setBounds(750, 300, this.getWidth(), this.getHeight());
+        setIconImage(Toolkit.getDefaultToolkit().getImage(getClass().getResource("/multimedia/logo.png")));
     }
 
     /**
@@ -97,7 +99,7 @@ public class Puntuacion extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        if(txtNombre.getText() != ""){
+        if(!(txtNombre.getText().equals(""))){
             manejadorConfig.InsertPuntuacion(txtNombre.getText(), punt);
         Inicio aa = new Inicio();
         aa.setVisible(true);

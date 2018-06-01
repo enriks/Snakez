@@ -6,6 +6,7 @@
 package Snakez;
 
 import java.awt.Color;
+import java.awt.Toolkit;
 import java.lang.reflect.Field;
 import java.util.List;
 
@@ -23,7 +24,7 @@ public class Configuracion extends javax.swing.JFrame {
         initComponents();
         setBounds(750, 300, this.getWidth(), this.getHeight());
         cargar();
-        
+        setIconImage(Toolkit.getDefaultToolkit().getImage(getClass().getResource("/multimedia/logo.png")));
     }
 
     /**
@@ -52,7 +53,6 @@ public class Configuracion extends javax.swing.JFrame {
         jLabel6 = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
         clrFondo = new javax.swing.JColorChooser();
-        btnSalir = new javax.swing.JButton();
         btnGuardar = new javax.swing.JButton();
         jPanel3 = new javax.swing.JPanel();
         jLabel5 = new javax.swing.JLabel();
@@ -215,16 +215,8 @@ public class Configuracion extends javax.swing.JFrame {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        btnSalir.setFont(new java.awt.Font("Comic Sans MS", 0, 18)); // NOI18N
-        btnSalir.setText("Salir");
-        btnSalir.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnSalirActionPerformed(evt);
-            }
-        });
-
         btnGuardar.setFont(new java.awt.Font("Comic Sans MS", 0, 18)); // NOI18N
-        btnGuardar.setText("Guardar");
+        btnGuardar.setText("Guardar y salir");
         btnGuardar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnGuardarActionPerformed(evt);
@@ -294,12 +286,9 @@ public class Configuracion extends javax.swing.JFrame {
                     .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(btnSalir)
-                .addGap(31, 31, 31)
-                .addComponent(btnGuardar)
-                .addGap(308, 308, 308))
+            .addGroup(layout.createSequentialGroup()
+                .addGap(306, 306, 306)
+                .addComponent(btnGuardar))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -310,11 +299,9 @@ public class Configuracion extends javax.swing.JFrame {
                         .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 26, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnSalir)
-                    .addComponent(btnGuardar))
-                .addContainerGap())
+                .addGap(18, 18, 18)
+                .addComponent(btnGuardar)
+                .addContainerGap(19, Short.MAX_VALUE))
         );
 
         pack();
@@ -327,17 +314,12 @@ public class Configuracion extends javax.swing.JFrame {
         aleatorio = 1;
         }
         manejadorConfig.updateConfig(cmbSkinplyr1.getSelectedItem().toString(), cmbSkinplyr2.getSelectedItem().toString(), cmbSkinplyr3.getSelectedItem().toString(), cmbSkinplyr4.getSelectedItem().toString(), Integer.parseInt(cmbNumplyr.getSelectedItem().toString()), clrFondo.getColor().getRed(),clrFondo.getColor().getGreen(),clrFondo.getColor().getBlue(),aleatorio,cmbMusica.getSelectedIndex()+1);
-    }//GEN-LAST:event_btnGuardarActionPerformed
-
-    private void btnSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalirActionPerformed
         this.dispose();
-        Inicio a = new Inicio();
-        a.setVisible(true);
-    }//GEN-LAST:event_btnSalirActionPerformed
+    }//GEN-LAST:event_btnGuardarActionPerformed
 
     private void chkiAleatorioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_chkiAleatorioActionPerformed
         // TODO add your handling code here:
-        System.out.print("nada");
+       
         cmbMusica.setEnabled(selecionado);
         selecionado = !selecionado;
     }//GEN-LAST:event_chkiAleatorioActionPerformed
@@ -416,7 +398,7 @@ cmbMusica.setEnabled(!selecionado);
         chkiAleatorio.setSelected(selecionado);
         cmbNumplyr.setSelectedItem(lit.get(4));
         cmbMusica.setSelectedItem(manejadorConfig.selectReproductionMusic(Integer.parseInt(lit.get(9))));
-        System.out.println(lit.get(5));
+       
         clrFondo.setColor(Integer.parseInt(lit.get(5)),Integer.parseInt(lit.get(6)),Integer.parseInt(lit.get(7)));
         
     }
@@ -433,7 +415,6 @@ cmbMusica.setEnabled(!selecionado);
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnGuardar;
-    private javax.swing.JButton btnSalir;
     private javax.swing.JCheckBox chkiAleatorio;
     private javax.swing.JColorChooser clrFondo;
     private javax.swing.JComboBox<String> cmbMusica;

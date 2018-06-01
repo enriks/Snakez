@@ -5,6 +5,7 @@
  */
 package Snakez;
 
+import java.awt.Toolkit;
 import java.util.List;
 
 /**
@@ -20,6 +21,7 @@ public class Puntuaciones extends javax.swing.JFrame {
         initComponents();
         cargarPuntuaciones();
         setBounds(750, 300, this.getWidth(), this.getHeight());
+        setIconImage(Toolkit.getDefaultToolkit().getImage(getClass().getResource("/multimedia/logo.png")));
     }
 
     /**
@@ -99,9 +101,8 @@ public class Puntuaciones extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jLabel1)
             .addGroup(layout.createSequentialGroup()
-                .addGap(80, 80, 80)
+                .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(lbl5)
                     .addComponent(lbl4)
@@ -109,23 +110,28 @@ public class Puntuaciones extends javax.swing.JFrame {
                     .addComponent(lbl2)
                     .addComponent(lbl1)
                     .addComponent(jLabel2))
-                .addGap(77, 77, 77)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(lblP5)
                     .addComponent(lblP4)
                     .addComponent(lblP3)
                     .addComponent(lblP2)
                     .addComponent(lblP1)
-                    .addComponent(jLabel3)))
+                    .addComponent(jLabel3))
+                .addGap(38, 38, 38))
             .addGroup(layout.createSequentialGroup()
-                .addGap(125, 125, 125)
-                .addComponent(jButton1))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel1)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(125, 125, 125)
+                        .addComponent(jButton1)))
+                .addGap(0, 0, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addComponent(jLabel1)
-                .addGap(8, 8, 8)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
                     .addComponent(jLabel3))
@@ -149,7 +155,7 @@ public class Puntuaciones extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lblP5)
                     .addComponent(lbl5))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 46, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 48, Short.MAX_VALUE)
                 .addComponent(jButton1))
         );
 
